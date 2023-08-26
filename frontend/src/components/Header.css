@@ -1,0 +1,137 @@
+/* header */
+#header {
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+  z-index: 900;
+}
+#header-top,
+#footer {
+  background-color: var(--darkblue);
+}
+#header-top .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#header-top .logo {
+  width: 60px;
+  height: 60px;
+}
+
+#header-middle {
+  text-align: center;
+}
+#header-right {
+  text-align: right;
+}
+#header-middle .search {
+  display: inline-flex;
+  align-items: center;
+}
+
+#header-middle .search input {
+  width: 300px;
+  height: 5vh;
+  margin: 0;
+  outline: none;
+  border: none;
+  border-bottom-left-radius: 10px;
+}
+#header-middle .search button {
+  width: 100px;
+  height: 5vh;
+  background-color: var(--lightgreen);
+  color: #fff;
+  font-weight: 700;
+  border-top-right-radius: 10px;
+  outline: none;
+  border: none;
+}
+
+#header-right nav a {
+  padding: 0 20px;
+  font-weight: 800;
+  color: #fff;
+  width: 80px;
+  text-align: center;
+  margin-top: 3px;
+}
+
+.active1 {
+  cursor: initial;
+  border-bottom: 2px solid #fff;
+  border-radius: 20px;
+}
+
+/* Nav Band Section */
+
+#nav-band .nav-item .nav-link,
+#nav-band .dropdown .dropdown-item {
+  color: var(--darkblue);
+  font-weight: 500;
+  position: relative;
+  letter-spacing: 1px;
+  font-size: 17px;
+}
+#nav-band .dropdown .dropdown-item:link {
+  color: var(--darkblue);
+}
+#nav-band .dropdown .dropdown-item:visited {
+  color: #000;
+  background-color: var(--light);
+}
+#nav-band .nav-item .active {
+  cursor: initial;
+}
+#nav-band .nav-item .nav-link.active::after {
+  position: absolute;
+  content: '';
+  width: 40px;
+  height: 2px;
+  background-color: var(--darkblue);
+  bottom: 5px;
+  left: 12px;
+}
+
+/* Off Menu Bar */
+
+#menu-bar {
+  position: relative;
+  float: right;
+  clear: left;
+  padding: 3px;
+  margin-top: 15px;
+}
+
+#menu-bar:hover {
+  background-color: var(--lightgreen);
+  border-radius: 5px;
+}
+
+#menu-bar1::before,
+#menu-bar2::before,
+#menu-bar3::before {
+  content: '';
+  width: 22px;
+  height: 2px;
+  background-color: #fff;
+  font-weight: 800;
+  text-align: center;
+  position: absolute;
+  left: 3px;
+  margin: 2px;
+  z-index: 999;
+}
+
+#menu-bar #menu-bar1::before {
+  top: 5px;
+}
+#menu-bar #menu-bar2::before {
+  top: 12px;
+}
+#menu-bar #menu-bar3::before {
+  top: 19px;
+}

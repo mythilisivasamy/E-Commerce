@@ -1,0 +1,56 @@
+/* Feature Page */
+
+.feature {
+    background-color: var(--light);
+  }
+  .feature .card {
+    width: 100%;
+    height: 100%;
+    margin-left: 5px;
+    border-color: var(--lightblue);
+  }
+  
+  .feature .card-body {
+    margin-bottom: 2px;
+  }
+  
+  .feature .card-header {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .feature img {
+    height: 100%;
+    transition: all ease-in-out 0.3s;
+  }
+  
+  .feature img:hover {
+    transform: scale(1.1, 0.9);
+  }
+  
+  .feature .pro-btn {
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
+    background-color: var(--lightgreen);
+  }
+  
+  .feature .pro-btn:hover {
+    box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.6);
+  }
+  .feature .pro-btn a,
+  .feature .pro-btn i {
+    display: inline-flex;
+    padding: 2px;
+    margin: 2px;
+    color: #fff;
+  }
+  
+  .feature button .carousel-control-next-icon,
+  .feature button .carousel-control-prev-icon {
+    background-color: var(--darkblue);
+    border-radius: 50%;
+  }
+  .feature .carousel-control-prev,
+  .feature .carousel-control-next {
+    width: 2rem;
+  }
+  

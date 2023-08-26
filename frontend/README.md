@@ -1,21 +1,36 @@
-# E-Commerce Project MERN Tecnology
+# E-Commerce Project Front End
 
-# Show List of Products on the Home Page
+# Header.js
 
-# Filter products based on their sizes and sort by price
+1.Dividing NavBar into 3 columns
+2.First Column - Logo , Second Column - Search Box ,Third Column - Login and Shopping cart Icon.
 
-# Show Model when user clicked on the Product
+# HomeCover.js
 
-# Show the list of products in the cart
+1.Two Child Component
+<HomeCover> and <Slider>
 
-# Show checkout form to get the user data
+### HomeCover.js
 
-# Create store ,initialize state and create reducer functions
+    1.Displaying Cover image and Slogan
 
-# Create the backend to process the request from the front end
+### Slider.js
 
-# configure router for component navigation
+    1.Styling each product with Bootstrap Card
+    2.Putting all card items into carousel
 
-# create Mongodb atlas database
+# Footer.js
 
-# Build the application and publish it
+1.Dividing rows into four columns
+1.Displaying Links of Mens's products in first column
+2.Displaying Links of women's products in second column
+3.Displaying Links of Kids products in third column
+4.Displaying links for contact and login page
+
+# Styling
+
+1.Creating seperate style sheet for Header,Footer,Slider and HomeCover page
+
+# Importing React fontawesome icons
+
+1.Using React Fontawesome Icons for shopping cart
