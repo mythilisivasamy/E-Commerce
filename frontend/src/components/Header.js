@@ -1,7 +1,7 @@
 import './Header.css';
 import MyNavBar from './MyNavBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
   return (
     <div id="header">
@@ -9,7 +9,7 @@ const Header = () => {
         <div className="row">
           <div className="col-sm-12 col-md-3 col-lg-3">
             <img
-              src="./images/logo.png"
+              src="../images/logo.png"
               className="logo img-fluid"
               alt="logo"
             />
@@ -42,7 +42,7 @@ const Header = () => {
             <nav>
               <a href="./">Login</a>
               <a href="./">
-              <FontAwesomeIcon className="cart" icon={faCartShopping} />
+                <FontAwesomeIcon className="cart" icon={faCartShopping} />
               </a>
             </nav>
           </div>

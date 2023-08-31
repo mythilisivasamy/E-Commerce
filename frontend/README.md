@@ -1,36 +1,56 @@
-# E-Commerce Project Front End
+# E-Commerce Full Stack Using MERN Technology
 
-# Header.js
+## 1. Creating Home page comprised of
 
-1.Dividing NavBar into 3 columns
-2.First Column - Logo , Second Column - Search Box ,Third Column - Login and Shopping cart Icon.
+1.Header ,Footer ,HomeCover,Slider components
 
-# HomeCover.js
+### 2. Slicing the Global state of the application into 3
 
-1.Two Child Component
-<HomeCover> and <Slider>
+# 1.productSlice
 
-### HomeCover.js
+1.creating initial state and reducer function for the products
+2.creating extraReducer function and handle the action created outside of the application
 
-    1.Displaying Cover image and Slogan
+# 2.UserSlice
 
-### Slider.js
+1.creating initial state and reducer function for the users
+2.creating extraReducer function and handle the action created outside of the application
 
-    1.Styling each product with Bootstrap Card
-    2.Putting all card items into carousel
+# 3.CartSlice
 
-# Footer.js
+1.creating initial state and reducer function for the cart items
 
-1.Dividing rows into four columns
-1.Displaying Links of Mens's products in first column
-2.Displaying Links of women's products in second column
-3.Displaying Links of Kids products in third column
-4.Displaying links for contact and login page
+## 3.Creating store using @redux/toolkits
 
-# Styling
+1.configuring Store with 3 slices.
 
-1.Creating seperate style sheet for Header,Footer,Slider and HomeCover page
+# 4.Creating Product and Rating Component
 
-# Importing React fontawesome icons
+creating Rating component
+Creating Product component
+Use Rating component in Product component
 
-1.Using React Fontawesome Icons for shopping cart
+## 5. Creating ProductList component
+
+    1.Fetching products from backend using axios.post
+    2.Initialize the state of the productSlice with the fetched products.
+    3.Creating LoadingBox component to show the loading state of the app.
+    4.Creating MessageBox Component to show the error
+
+## 6. Creating ProductDetails page.
+
+1.Dividing page into 3 columns
+2.First column displays the large size image
+3.Second column displays details of the product
+4.Third column displays Status of the product's stock and 'add to cart ' action button
+
+## 7.Handling 'Add to cart' button click
+
+    1.Adding items to cart
+    2.Checking the existing items.If exists ,increase quantity else add item to cart.
+
+## 8. Creating cart views
+
+1.Creating Two columns
+2.First column displays,cart item's details
+2.Second column displays ,Total amount and action button

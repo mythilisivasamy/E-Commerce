@@ -1,4 +1,3 @@
-
 const MyNavBar = () => {
   return (
     <ul className="nav flex-row justify-content-center ">
