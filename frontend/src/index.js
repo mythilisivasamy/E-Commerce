@@ -5,12 +5,15 @@ import store from './app/store';
 import { Provider } from 'react-redux';
 import { fetchProducts } from './features/products/productsSlice';
 import reportWebVitals from './reportWebVitals';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 store.dispatch(fetchProducts());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <App />
+    <PayPalScriptProvider deferLoading="true">
+      <App />
+    </PayPalScriptProvider>
   </Provider>
 );
 

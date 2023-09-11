@@ -22,14 +22,6 @@ const orderSchema = new mongoose.Schema(
       city: { type: String, required: true },
       postalCode: { type: String, required: true },
       country: { type: String, required: true },
-      location: {
-        lat: Number,
-        lng: Number,
-        address: String,
-        name: String,
-        vicinity: String,
-        googleAddressId: String,
-      },
     },
     paymentMethod: { type: String, required: true },
     paymentResult: {
@@ -40,7 +32,6 @@ const orderSchema = new mongoose.Schema(
     },
     itemsPrice: { type: Number, required: true },
     shippingPrice: { type: Number, required: true },
-    taxPrice: { type: Number, required: true },
     totalPrice: { type: Number, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     isPaid: { type: Boolean, default: false },
@@ -53,5 +44,5 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-const OrderModel = mongoose.model('Order', orderSchema);
-export default OrderModel;
+const Order = mongoose.model('order', orderSchema);
+export default Order;

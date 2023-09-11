@@ -1,11 +1,12 @@
+import {Link} from 'react-router-dom';
 const MyNavBar = () => {
   return (
     <ul className="nav flex-row justify-content-center ">
                     <li className="nav-item">
-                        <a className="nav-link" href="./index.html">Home</a>
+                        <Link className="nav-link" to="/">Home</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="./all-products.html">All Products</a>
+                        <Link className="nav-link"to="/product">All Products</Link>
                     </li>
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href='./#'>Women</a>

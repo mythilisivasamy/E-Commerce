@@ -57,8 +57,9 @@ p {
 }
 
 .feature .pro-btn {
-  height: 35px;
+  height: auto;
   width: 100%;
+  font-weight: 600;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
   background-color: var(--lightgreen);
 }
@@ -105,4 +106,8 @@ img.img-large {
 
 .img-thumbnail {
   height: 100px !important;
+}
+
+.error {
+  color: red;
 }

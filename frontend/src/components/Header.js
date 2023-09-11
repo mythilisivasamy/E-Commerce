@@ -1,8 +1,21 @@
 import './Header.css';
 import MyNavBar from './MyNavBar';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { selectAllCartItems } from '../features/cart/cartSlice';
+import Badge from 'react-bootstrap/Badge';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUserInfo, signout } from '../features/users/usersSlice';
 const Header = () => {
+  const cartItems = useSelector(selectAllCartItems);
+  const userInfo = useSelector(selectUserInfo);
+  const dispatch = useDispatch();
+  const numOfCartItems$ = cartItems.reduce((a, item) => a + item.quantity, 0);
+  const clickHandler = () => {
+    dispatch(signout());
+  };
+
   return (
     <div id="header">
       <div className="container-fluid" id="header-top">
@@ -39,12 +52,62 @@ const Header = () => {
             className="col-12 col-sm-6  col-md-3 col-lg-3 pt-2 my-2"
             id="header-right"
           >
-            <nav>
-              <a href="./">Login</a>
-              <a href="./">
-                <FontAwesomeIcon className="cart" icon={faCartShopping} />
-              </a>
-            </nav>
+            <ul className="nav flex-row justify-content-center ">
+              {userInfo ? (
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle text-white fs-6 fw-bold"
+                    data-bs-toggle="dropdown"
+                    href="./#"
+                  >
+                    {userInfo.userName}
+                  </a>
+                  <ul className="dropdown-menu bg-light">
+                    <li>
+                      <a className="dropdown-item fs-6 " href="./#">
+                        Profile
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item fs-6" href="./#">
+                        Order History
+                      </a>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item fs-6"
+                        onClick={clickHandler}
+                        to="/"
+                      >
+                        Logout
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+              ) : (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link text-white fs-6 fw-bold"
+                    to="/login?redirect=/shipping"
+                  >
+                    Login
+                  </Link>
+                </li>
+              )}
+              <li className="nav-item">
+                <Link className="nav-link text-white fs-6 fw-bold" to="/cart">
+                  <FontAwesomeIcon className="cart" icon={faCartShopping} />
+                  {numOfCartItems$ > 0 && (
+                    <Badge pill bg="success">
+                      {numOfCartItems$}
+                    </Badge>
+                  )}
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

@@ -13,7 +13,6 @@ const ProductsList = () => {
   const status = useSelector(selectStatus);
   const error = useSelector(selectError);
   const products = useSelector(selectAllProducts);
-  console.log(`products ${products}`);
 
   return (
     <div>

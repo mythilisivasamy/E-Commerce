@@ -4,6 +4,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import seedRouter from './routes/seedRoutes.js';
 import productRouter from './routes/productRoutes.js';
+import userRouter from './routes/userRoutes.js';
+import orderRouter from './routes/orderRoutes.js';
+import globalErrorHandler from './middleware/errorHandler.js';
 // Connecting MongoDB
 import connectDB from './database/connection.js';
 // Initiate the Express Application
@@ -20,8 +23,14 @@ connectDB();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //load routes
+app.get('/api/keys/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+});
 app.use('/api/seed', seedRouter);
 app.use('/api/products', productRouter);
+app.use('/api/user', userRouter);
+app.use('/api/order', orderRouter);
+app.use(globalErrorHandler);
 
 // Express Server Listening at the port
 app.listen(PORT, () =>

@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { selectProductBySlug } from '../features/products/productsSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -10,8 +10,12 @@ import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
+import { addCartItem, selectAllCartItems } from '../features/cart/cartSlice';
 
 const ProductDetails = () => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectAllCartItems);
+  const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
   const product$ = useSelector((state) => selectProductBySlug(state, slug));
@@ -20,7 +24,19 @@ const ProductDetails = () => {
     setProduct(product$);
   }, [product$]);
 
-  console.log(product);
+  const addToCartHandler = (product) => {
+    const cartItem = cartItems.find((item) => item._id === product._id);
+    if (cartItem) {
+      navigate('/cart');
+      return;
+    }
+    try {
+      dispatch(addCartItem(product));
+      navigate('/cart');
+    } catch (err) {
+      alert(err);
+    }
+  };
   return (
     <div className="bg-white">
       <Row>
@@ -82,8 +98,13 @@ const ProductDetails = () => {
                 </ListGroup.Item>
 
                 {product.countInStock > 0 && (
-                  <ListGroupItem>
-                    <Button>Add to Cart</Button>
+                  <ListGroupItem className="feature">
+                    <Button
+                      onClick={() => addToCartHandler(product)}
+                      className="pro-btn"
+                    >
+                      Add to Cart
+                    </Button>
                   </ListGroupItem>
                 )}
               </ListGroup>
