@@ -25,9 +25,10 @@ const Login = () => {
   useEffect(() => {
     if (statusCode === '201') {
       dispatch(setStatusCode());
-    }
-    if (localStorage.getItem('userInfo')) {
-      navigate(redirectTo);
+
+      if (localStorage.getItem('userInfo')) {
+        navigate(redirectTo, { replace: true });
+      }
     }
   }, [navigate, redirectTo, statusCode, dispatch]);
   const message = useSelector(selectUserMessage);

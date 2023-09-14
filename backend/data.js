@@ -3,16 +3,20 @@ import bcrypt from 'bcryptjs';
 const data = {
   users: [
     {
-      name: 'Mythili',
+      firstName: 'Mythili',
+      lastName: 'sivasamy',
       email: 'admin@example.com',
       password: bcrypt.hashSync('123456'),
       isAdmin: true,
+      resetToken: '',
     },
     {
-      name: 'Mahi',
+      firstName: 'Mahi',
+      lastName: 'samy',
       email: 'user@example.com',
       password: bcrypt.hashSync('123456'),
       isAdmin: false,
+      resetToken: '',
     },
   ],
   products: [
@@ -29,7 +33,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Max Ethnic',
+      name: 'Max Ethnic1',
       slug: 'max-ethnic-1',
       category: 'Ethnic',
       image: './images/kids/ethnic-1.jpg',
@@ -41,7 +45,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Max Ethnic',
+      name: 'Max Ethnic2',
       slug: 'max-ethnic-2',
       category: 'Ethnic',
       image: './images/kids/ethnic-2.jpg',
@@ -53,7 +57,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Max Ethnic',
+      name: 'Max Ethnic3',
       slug: 'max-ethnic-3',
       category: 'Ethnic',
       image: './images/kids/ethnic-3.jpg',
@@ -65,7 +69,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Max Ethnic',
+      name: 'Max Ethnic4',
       slug: 'max-ethnic-4',
       category: 'Ethnic',
       image: './images/kids/ethnic-4.jpg',
@@ -76,9 +80,8 @@ const data = {
       numReviews: 10,
       description: 'high quality Dresses',
     },
-
     {
-      name: 'Lilliput Casuals',
+      name: 'Lilliput Casuals2',
       slug: 'lilliput-casuals-2',
       category: 'Casuals',
       image: './images/kids/casual-2.jpg',
@@ -90,7 +93,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Lilliput Casuals',
+      name: 'Lilliput Casuals3',
       slug: 'lilliput-casuals-3',
       category: 'Casuals',
       image: './images/kids/casual-3.jpg',
@@ -102,7 +105,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Lilliput Casuals',
+      name: 'Lilliput Casuals4',
       slug: 'lilliput-casuals-4',
       category: 'Casuals',
       image: './images/kids/casual-4.jpg',
@@ -114,7 +117,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Silk Sarees',
+      name: 'Silk Sarees1',
       slug: 'silk-saree-1',
       category: 'saree',
       image: './images/women/saree-1.jpg',
@@ -126,7 +129,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Silk Sarees',
+      name: 'Silk Sarees2',
       slug: 'silk-saree-2',
       category: 'saree',
       image: './images/women/saree-2.jpg',
@@ -138,7 +141,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Cotton Sarees',
+      name: 'Cotton Sarees3',
       slug: 'Cotton-saree-3',
       category: 'saree',
       image: './images/women/saree-3.jpg',
@@ -150,7 +153,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Cotton Sarees',
+      name: 'Cotton Sarees4',
       slug: 'cotton-saree-4',
       category: 'saree',
       image: './images/women/saree-4.jpg',
@@ -162,7 +165,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Kurtha',
+      name: 'Kurtha1',
       slug: 'kurtha-1',
       category: 'kurtha',
       image: './images/women/kurtha-1.jpg',
@@ -174,7 +177,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Kurtha',
+      name: 'Kurtha2',
       slug: 'kurtha-2',
       category: 'kurtha',
       image: './images/women/kurtha-2.jpg',
@@ -186,7 +189,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Kurtha',
+      name: 'Kurtha3',
       slug: 'kurtha-3',
       category: 'kurtha',
       image: './images/women/kurtha-3.jpg',
@@ -198,7 +201,7 @@ const data = {
       description: 'high quality Dresses',
     },
     {
-      name: 'Kurtha',
+      name: 'Kurtha4',
       slug: 'kurtha-4',
       category: 'kurtha',
       image: './images/women/kurtha-4.jpg',
@@ -270,7 +273,7 @@ const data = {
       description: 'high quality product',
     },
     {
-      name: 'Trends T-Shirt',
+      name: 'Trends T-Shirt1',
       slug: 'trends-t-shirt-1',
       category: 'Shirt',
       image: './images/men/t-shirt-2.jpg',
@@ -282,7 +285,7 @@ const data = {
       description: 'high quality product',
     },
     {
-      name: 'Trends T-Shirt',
+      name: 'Trends T-Shirt2',
       slug: 'trends-t-shirt-2',
       category: 'Shirt',
       image: './images/men/t-shirt-3.jpg',
@@ -294,7 +297,7 @@ const data = {
       description: 'high quality product',
     },
     {
-      name: 'Trends T-Shirt',
+      name: 'Trends T-Shirt3',
       slug: 'trends-t-shirt-3',
       category: 'Shirt',
       image: './images/men/t-shirt-6.jpg',
@@ -306,7 +309,7 @@ const data = {
       description: 'high quality product',
     },
     {
-      name: 'Trends T-Shirt',
+      name: 'Trends T-Shirt4',
       slug: 'trends-t-shirt-4',
       category: 'Shirt',
       image: './images/men/t-shirt-8.jpg',
@@ -317,6 +320,11 @@ const data = {
       numReviews: 10,
       description: 'high quality product',
     },
+
   ],
 };
 export default data;
+/*
+
+
+*/

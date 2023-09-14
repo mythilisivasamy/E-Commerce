@@ -54,3 +54,27 @@ Use Rating component in Product component
 1.Creating Two columns
 2.First column displays,cart item's details
 2.Second column displays ,Total amount and action button
+
+### 9. Creating PreviewOrder
+
+1.Creating Two columns
+2.First column displays,shipping Address,Payment method and cart item's details
+2.Second column displays ,Order summary
+
+### 10.Placing Order
+
+1.creating backend api to create the order in the database.
+2.view displays the order details with orderID
+
+## 11.Creating paypal developer account
+
+1.Storing paypal client id the process environment.
+2.Installing @paypal/react-paypal-js
+3.Wrapping the App component with paypal-script-provider
+4.fetching client id from backend.
+5.configuring paypal-script-provider with client id.
+6.creating PayPalButtons with createOrder,onApprove event handler
+
+### 12.Modifying Order with orderId
+
+1.

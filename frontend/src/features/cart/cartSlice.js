@@ -19,6 +19,11 @@ const initialState = {
   paymentMethod: localStorage.getItem('paymentMethod')
     ? localStorage.getItem('paymentMethod')
     : 'PayPal',
+  order:localStorage.getItem('order')
+  ?JSON.parse(localStorage.getItem('order'))
+  :null,
+  successPay:false,
+  loadingPay:false
 };
 export const createOrder = createAsyncThunk(
   'cart/createOrder',
@@ -28,7 +33,7 @@ export const createOrder = createAsyncThunk(
       const response = await axios.post(`${ORDERS_URL}`, order, {
         headers: { authorization: `Bearer ${token}` },
       });
-      return {...response.data};
+      return { ...response.data };
     } catch (err) {
       return err.message;
     }
@@ -42,7 +47,7 @@ export const fetchOrder = createAsyncThunk(
       const response = await axios.get(`${ORDERS_URL}/${orderId}`, {
         headers: { authorization: `Bearer ${token}` },
       });
-      return {...response.data};
+      return { ...response.data };
     } catch (err) {
       return err.message;
     }
@@ -88,6 +93,23 @@ const cartSlice = createSlice({
       state.paymentMethod = action.payload;
       localStorage.setItem('paymentMethod', state.paymentMethod);
     },
+    payRequest(state, action) {
+      state.loadingPay = true;
+      state.successPay = false;
+    },
+    paySuccess(state, action) {
+      state.loadingPay = false;
+      state.successPay = true;
+      state.order = action.payload;
+    },
+    payFail(state, action) {
+      state.loadingPay = false;
+      state.successPay = false;
+    },
+    payReset(state, action) {
+      state.loadingPay = false;
+      state.successPay = false;
+    },
   },
   extraReducers(builder) {
     builder
@@ -96,8 +118,8 @@ const cartSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.statusCode = '201';
-        console.log(action.payload);
         state.order = action.payload;
+        localStorage.setItem('order', JSON.stringify(action.payload));
       })
       .addCase(createOrder.rejected, (state) => {
         state.status = 'failed';
@@ -107,8 +129,8 @@ const cartSlice = createSlice({
       })
       .addCase(fetchOrder.fulfilled, (state, action) => {
         state.statusCode = '201';
-        console.log(action.payload);
         state.order = action.payload;
+        localStorage.setItem('order', JSON.stringify(action.payload));
       })
       .addCase(fetchOrder.rejected, (state) => {
         state.status = 'failed';
@@ -120,6 +142,10 @@ export const {
   removeCartItem,
   saveShippingAddress,
   savePaymentMethod,
+  payRequest,
+  paySuccess,
+  payFail,
+  payReset,
 } = cartSlice.actions;
 export const clearCart = (state) => (state.cart = {});
 export const selectAllCartItems = (state) => state.cart.cartItems;
@@ -130,5 +156,7 @@ export const selectItemById = (state, id) =>
 export const selectPaymentMethod = (state) => state.cart.paymentMethod;
 export const selectStatusCode = (state) => state.cart.statusCode;
 export const selectOrder = (state) => state.cart.order;
+export const selectSuccessPay = (state) => state.cart.successPay;
+export const selectLoadingPay = (state) => state.cart.loadingPay;
 
 export default cartSlice.reducer;

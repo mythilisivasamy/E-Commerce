@@ -7,6 +7,7 @@ import { selectAllCartItems } from '../features/cart/cartSlice';
 import Badge from 'react-bootstrap/Badge';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUserInfo, signout } from '../features/users/usersSlice';
+
 const Header = () => {
   const cartItems = useSelector(selectAllCartItems);
   const userInfo = useSelector(selectUserInfo);
@@ -64,9 +65,10 @@ const Header = () => {
                   </a>
                   <ul className="dropdown-menu bg-light">
                     <li>
-                      <a className="dropdown-item fs-6 " href="./#">
+                      <Link to="/profile" className="dropdown-item fs-6">
+                        {' '}
                         Profile
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a className="dropdown-item fs-6" href="./#">
@@ -89,12 +91,21 @@ const Header = () => {
                 </li>
               ) : (
                 <li className="nav-item">
-                  <Link
-                    className="nav-link text-white fs-6 fw-bold"
-                    to="/login?redirect=/shipping"
-                  >
-                    Login
-                  </Link>
+                  {numOfCartItems$ === 0 ? (
+                    <Link
+                      className="nav-link text-white fs-6 fw-bold"
+                      to="/login?redirect="
+                    >
+                      Login
+                    </Link>
+                  ) : (
+                    <Link
+                      className="nav-link text-white fs-6 fw-bold"
+                      to="/login?redirect=/shipping"
+                    >
+                      Login
+                    </Link>
+                  )}
                 </li>
               )}
               <li className="nav-item">

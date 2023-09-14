@@ -1,23 +1,73 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { fetchOrder, selectOrder } from '../features/cart/cartSlice';
+import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import PayPalButtons from 'react-bootstrap/PayPalButtons'
+import ListGroup from 'react-bootstrap/ListGroup';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import MessageBox from '../components/MessageBox';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import {
+  selectOrder,
+  payRequest,
+  payFail,
+  paySuccess,
+} from '../features/cart/cartSlice';
+import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 
 const OrderScreen = () => {
   const params = useParams();
-  // const navigate=useNavigate();
   const { id: orderId } = params;
-  const order = useSelector(selectOrder);
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchOrder(orderId));
-  }, [orderId, dispatch]);
+  const order = useSelector(selectOrder);
+  const [paypalDispatch] = usePayPalScriptReducer();
 
+  function createOrder(data, actions) {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: { value: order.totalPrice },
+          },
+        ],
+      })
+      .then((orderID) => {
+        alert(orderId);
+        return orderID;
+      });
+  }
+  function onApprove(data, actions) {
+    return actions.order.capture().then(async function (details) {
+      try {
+        dispatch(payRequest());
+        const { data } = await axios.put(
+          `/api/orders/${order._id}/pay`,
+          details,
+          {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+          }
+        );
+        dispatch(paySuccess(data));
+        toast.success('Order is paid');
+      } catch (err) {
+        dispatch(payFail());
+        toast.error('Order Failed');
+      }
+    });
+  }
+
+  function onError(err) {
+    toast.error('order failed');
+  }
+
+  useEffect(() => {
+    if (!order.isPaid) {
+      paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
+    }
+  }, [order, paypalDispatch]);
   return (
     <div>
       <h5 className="fs-4 fw-400">Order:{orderId}</h5>
@@ -67,7 +117,7 @@ const OrderScreen = () => {
                 <Row key={item._id}>
                   <Col sm={12} md={3} className="text-center">
                     <img
-                      src={item.image}
+                      src={'.' + item.image}
                       alt={item.name}
                       className="img-fluid rounded img-thumbnail"
                     />
@@ -146,14 +196,15 @@ const OrderScreen = () => {
                   <h5>Rs.{order.totalPrice}</h5>
                 </Col>
               </Row>
-
-              <div className="d-flex justify-content-around align-items-center">
-                <PayPalButtons
-                  createOrder={createOrder}
-                  onApprove={onApprove}
-                  onError={onError}
-                ></PayPalButtons>
-              </div>
+              <ListGroup>
+                <ListGroupItem>
+                  <PayPalButtons
+                    createOrder={createOrder}
+                    onApprove={onApprove}
+                    onError={onError}
+                  />
+                </ListGroupItem>
+              </ListGroup>
             </Card.Body>
           </Card>
         </Col>

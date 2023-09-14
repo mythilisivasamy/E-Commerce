@@ -38,10 +38,6 @@ const PlaceOrder = () => {
   }, [statusCode, navigate, order]);
 
   const placeOrderHandler = () => {
-    console.log(
-      localStorage.getItem('itemsPrice'),
-      localStorage.getItem('totalPrice')
-    );
     const order = {
       orderItems: cart.cartItems,
       shippingAddress: cart.shippingAddress,
@@ -194,24 +190,3 @@ const PlaceOrder = () => {
   );
 };
 export default PlaceOrder;
-
-/* const ORDER={
-        orderItems:[{
-            slug:'',
-            name:'',
-            quantity:0,
-            image:'',
-            product:'ref(product)'
-        }],
-        shippingAddress:{},
-        paymentMethod:'',
-        paymentResult:{},
-        itemsPrice:0,
-        shippingPrice:0,
-        totalPrice:0,
-        user:ref(User)
-        isPaid:'false',
-        paidAt:'date',
-        isDelivered:false,
-        deliveredAt:'date'
-        } */

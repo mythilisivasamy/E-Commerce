@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 const Product = (props) => {
   const cartItems = useSelector(selectAllCartItems);
-  const { product } = props;
+  const { product, display } = props;
   const dispatch = useDispatch();
   const addToCartHandler = (product) => {
     const cartItem = cartItems.find((item) => item._id === product._id);
@@ -25,25 +25,32 @@ const Product = (props) => {
     }
   };
   return (
-    <Card className="card">
-      <Card.Header className="card-header">
+    <Card className={display ? display : 'card'}>
+      <Card.Header className="card-header d-sm-block">
         <Link to={`/product/${product.slug}`}>
           <img src={product.image} className="img-fluid" alt={product.name} />
         </Link>
       </Card.Header>
 
-      <Card.Body className="card-body">
+      <Card.Body className="card-body d-sm-block">
         <Link to={`/product/${product.slug}`}>
-          <Card.Title className="card-title">{product.name}</Card.Title>
+          <Card.Title className="card-title d-sm-block">
+            {product.name}
+          </Card.Title>
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text className="card-title">Rs.{product.price}</Card.Text>
+        <Card.Text className="card-title d-sm-block">
+          Rs.{product.price}
+        </Card.Text>
         {product.countInStock === 0 ? (
-          <Button className="pro-btn" variant="flush" disabled>
+          <Button className="pro-btn d-sm-block" variant="flush" disabled>
             Out of stock
           </Button>
         ) : (
-          <Button className="pro-btn" onClick={() => addToCartHandler(product)}>
+          <Button
+            className="pro-btn d-sm-block"
+            onClick={() => addToCartHandler(product)}
+          >
             <span>Add to cart</span>
             <span>
               <FontAwesomeIcon icon={faCartShopping} />
