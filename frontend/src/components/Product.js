@@ -9,6 +9,10 @@ import { addCartItem, selectAllCartItems } from '../features/cart/cartSlice';
 import { toast } from 'react-toastify';
 
 const Product = (props) => {
+  let rupeeIndian = Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+  });
   const cartItems = useSelector(selectAllCartItems);
   const { product, display } = props;
   const dispatch = useDispatch();
@@ -26,38 +30,36 @@ const Product = (props) => {
   };
   return (
     <Card className={display ? display : 'card'}>
-      <Card.Header className="card-header d-sm-block">
-        <Link to={`/product/${product.slug}`}>
-          <img src={product.image} className="img-fluid" alt={product.name} />
-        </Link>
-      </Card.Header>
-
-      <Card.Body className="card-body d-sm-block">
-        <Link to={`/product/${product.slug}`}>
-          <Card.Title className="card-title d-sm-block">
-            {product.name}
-          </Card.Title>
+      <div className="card-header text-center text-center bg-white">
+        <img src={product.image} className="img-fluid" alt={product.name} />
+      </div>
+      <div className="card-body text-start  bg-light">
+        <Link to={`/product/${product.slug}`} className="link-color">
+          <span className="card-title">{product.name}</span>
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text className="card-title d-sm-block">
-          Rs.{product.price}
-        </Card.Text>
+        <div className="card-text d-sm-block link-color">
+          {rupeeIndian.format(product.price)}
+        </div>
         {product.countInStock === 0 ? (
           <Button className="pro-btn d-sm-block" variant="flush" disabled>
             Out of stock
           </Button>
         ) : (
-          <Button
+          <button
             className="pro-btn d-sm-block"
             onClick={() => addToCartHandler(product)}
           >
             <span>Add to cart</span>
             <span>
-              <FontAwesomeIcon icon={faCartShopping} />
+              <FontAwesomeIcon
+                style={{ color: 'white' }}
+                icon={faCartShopping}
+              />
             </span>{' '}
-          </Button>
+          </button>
         )}
-      </Card.Body>
+      </div>
     </Card>
   );
 };

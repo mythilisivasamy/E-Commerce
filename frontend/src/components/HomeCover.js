@@ -1,4 +1,5 @@
 import './HomeCover.css';
+import { Link } from 'react-router-dom';
 const HomeCover = () => {
   return (
     <div className="container py-3 bg-white" id="main">
@@ -11,9 +12,9 @@ const HomeCover = () => {
             <p>
               Save more with coupons & upto <span>70%</span> Off
             </p>
-            <a href="./">
+            <Link to="/product">
               <button className="btn mb-2">Shop Now</button>
-            </a>
+            </Link>
             <h5 className="mt-3">
               <strong>
                 <em>Find . Explore . Buy </em>

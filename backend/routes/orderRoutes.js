@@ -66,4 +66,21 @@ orderRouter.put(
   })
 );
 
+orderRouter.get(
+  '/fetchUserOrders',
+  isAuth,
+  asyncHandler(async (req, res) => {
+    console.log('fetch');
+    const userId = req.user._id;
+    const orders = await Order.find({ user: userId });
+    if (orders) {
+      console.table(orders);
+      res.status(201).json(orders);
+    } else {
+      console.log('err')
+      res.status(404).send({ message: 'Order Not Found' });
+    }
+  })
+);
+
 export default orderRouter;

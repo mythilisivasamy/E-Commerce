@@ -1,18 +1,26 @@
 import './Header.css';
 import MyNavBar from './MyNavBar';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { selectAllCartItems } from '../features/cart/cartSlice';
 import Badge from 'react-bootstrap/Badge';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Stack from 'react-bootstrap/Stack';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUserInfo, signout } from '../features/users/usersSlice';
+import { useState } from 'react';
 
 const Header = () => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const cartItems = useSelector(selectAllCartItems);
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   const numOfCartItems$ = cartItems.reduce((a, item) => a + item.quantity, 0);
+
   const clickHandler = () => {
     dispatch(signout());
   };
@@ -29,11 +37,7 @@ const Header = () => {
             />
 
             <div id="menu-bar" className="d-block d-sm-none">
-              <span
-                data-bs-toggle="offcanvas"
-                className="btn btn-bg-none"
-                data-bs-target="#demo"
-              >
+              <span className="btn btn-bg-none" onClick={handleShow}>
                 <div id="menu-bar1"></div>
                 <div id="menu-bar2"></div>
                 <div id="menu-bar3"></div>
@@ -55,40 +59,27 @@ const Header = () => {
           >
             <ul className="nav flex-row justify-content-center ">
               {userInfo ? (
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle text-white fs-6 fw-bold"
-                    data-bs-toggle="dropdown"
-                    href="./#"
+                <Dropdown>
+                  <Dropdown.Toggle
+                    variant="flush"
+                    className="text-white"
+                    id="dropdown-basic"
                   >
                     {userInfo.userName}
-                  </a>
-                  <ul className="dropdown-menu bg-light">
-                    <li>
-                      <Link to="/profile" className="dropdown-item fs-6">
-                        {' '}
-                        Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <a className="dropdown-item fs-6" href="./#">
-                        Order History
-                      </a>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item fs-6"
-                        onClick={clickHandler}
-                        to="/"
-                      >
-                        Logout
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item>
+                      <Link to="/profile">Profile</Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item>
+                      <Link to="/orderHistory"> Order History</Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item>
+                      <span onClick={clickHandler}>Logout</span>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               ) : (
                 <li className="nav-item">
                   {numOfCartItems$ === 0 ? (
@@ -133,56 +124,40 @@ const Header = () => {
           </div>
         </div>
       </div>
-
-      <div className="offcanvas offcanvas-start offcanvas-lg" id="demo">
-        <div className="offcanvas-header d-flex justify-content-between">
-          <h3>Menu</h3>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="offcanvas"
-          ></button>
-        </div>
-        <div className="offcanvas-body text-bg-light">
-          <ul className="nav flex-column justify-content-between ">
-            <li className="nav-item">
-              <a className="nav-link active" href="./">
+      <Offcanvas show={show} onHide={handleClose} id="offcanvas">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Menu</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body className="text-bg-info">
+          <Stack direction="Vertical" gap={2}>
+            <div className="p-2">
+              <NavLink className="nav-link" to="/" onClick={handleClose}>
                 Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="./">
+              </NavLink>
+            </div>
+            <div className="p-2">
+              <NavLink className="nav-link" to="/product" onClick={handleClose}>
                 All Products
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link " href="./">
+              </NavLink>
+            </div>
+            <div className="p-2">
+              <NavLink className="nav-link" to="/product" onClick={handleClose}>
                 Women
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link " href="./">
+              </NavLink>
+            </div>
+            <div className="p-2">
+              <NavLink className="nav-link" to="/product" onClick={handleClose}>
                 Men
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link " href="./">
+              </NavLink>
+            </div>
+            <div className="p-2">
+              <NavLink className="nav-link" to="/product" onClick={handleClose}>
                 Kids
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link active" href="./">
-                Login
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link " href="./">
-                Contacts
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+              </NavLink>
+            </div>
+          </Stack>
+        </Offcanvas.Body>
+      </Offcanvas>
     </div>
   );
 };

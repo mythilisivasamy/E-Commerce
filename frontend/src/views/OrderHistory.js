@@ -1,9 +1,6 @@
-const OrderHistory = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
 
-export default OrderHistory
+const OrderHistory = () => {
+  return <div>User Orders</div>;
+};
+
+export default OrderHistory;

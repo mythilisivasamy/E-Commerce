@@ -7,10 +7,10 @@ const Footer = () => {
           <h6>Women</h6>
           <div className="d-flex flex-column">
             <a href="./">All Dresses</a>
-            <a href="./#saree">Sarees</a>
-            <a href="./#kurtha">Kurtha</a>
-            <a href="./#tops">Tops</a>
-            <a href="./#leggings">Leggings</a>
+            <a href="./">Sarees</a>
+            <a href="./">Kurtha</a>
+            <a href="./">Tops</a>
+            <a href="./">Leggings</a>
           </div>
         </div>
 
@@ -18,20 +18,20 @@ const Footer = () => {
           <h6>Men</h6>
           <div className="d-flex flex-column">
             <a href="./">All Dresses</a>
-            <a href="./#tshirt">T-Shirt</a>
-            <a href="./#casual">Casuals</a>
-            <a href="./#dhoti">Dhoties</a>
-            <a href="./#suit">Suits</a>
+            <a href="./">T-Shirt</a>
+            <a href="./">Casuals</a>
+            <a href="./">Dhoties</a>
+            <a href="./">Suits</a>
           </div>
         </div>
         <div className="col-sm-12 col-md-6 col-lg-3 text-center pb-3">
           <h6>Kids</h6>
           <div className="d-flex flex-column">
             <a href="./">All Dresses</a>
-            <a href="./#skirt">Skirts</a>
-            <a href="./#ethnic">Ethnic Wear</a>
-            <a href="./#party">Party Wear</a>
-            <a href="./#casual">Casuals</a>
+            <a href="./">Skirts</a>
+            <a href="./">Ethnic Wear</a>
+            <a href="./">Party Wear</a>
+            <a href="./">Casuals</a>
           </div>
         </div>
         <div className="col-sm-12 col-md-6 col-lg-3 text-center pb-3">

@@ -3,14 +3,16 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { saveShippingAddress } from '../features/cart/cartSlice';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { selectUserInfo } from '../features/users/usersSlice';
 
 const ShippingAddress = () => {
   const shippingAddress = JSON.parse(localStorage.getItem('shippingAddress'));
+  const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -27,7 +29,10 @@ const ShippingAddress = () => {
         setValue(`${control}`, `${shippingAddress[control]}`);
       });
     }
-  }, [shippingAddress, setValue]);
+    if (!userInfo) {
+      navigate('/login');
+    }
+  }, [shippingAddress, setValue, userInfo, navigate]);
 
   const onSubmit = (formValues) => {
     try {

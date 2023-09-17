@@ -12,10 +12,12 @@ import OrderHistory from './views/OrderHistory';
 import PlaceOrder from './views/PlaceOrder';
 import Payment from './views/Payment';
 import OrderScreen from './views/OrderScreen';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -27,12 +29,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/shipping" element={<ShippingAddress />} />
-          <Route path="/payment" element={<Payment/>} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/orderHistory" element={<OrderHistory />} />
-          <Route path="/placeOrder" element={<PlaceOrder/>} />
-          <Route path="/order/:id" element={<OrderScreen/>} />    
-
+          <Route path="/placeOrder" element={<PlaceOrder />} />
+          <Route path="/order/:id" element={<OrderScreen />} />
         </Route>
       </Routes>
     </Router>

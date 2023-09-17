@@ -15,7 +15,7 @@ import {
   payFail,
   paySuccess,
 } from '../features/cart/cartSlice';
-import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
+import LoadingBox from '../components/LoadingBox';
 
 const OrderScreen = () => {
   const params = useParams();
@@ -23,7 +23,7 @@ const OrderScreen = () => {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const dispatch = useDispatch();
   const order = useSelector(selectOrder);
-  const [paypalDispatch] = usePayPalScriptReducer();
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
   function createOrder(data, actions) {
     return actions.order
@@ -35,7 +35,6 @@ const OrderScreen = () => {
         ],
       })
       .then((orderID) => {
-        alert(orderId);
         return orderID;
       });
   }
@@ -196,14 +195,15 @@ const OrderScreen = () => {
                   <h5>Rs.{order.totalPrice}</h5>
                 </Col>
               </Row>
+              {isPending && <LoadingBox />}
               <ListGroup>
-                <ListGroupItem>
+                <ListGroup.Item>
                   <PayPalButtons
                     createOrder={createOrder}
                     onApprove={onApprove}
                     onError={onError}
                   />
-                </ListGroupItem>
+                </ListGroup.Item>
               </ListGroup>
             </Card.Body>
           </Card>

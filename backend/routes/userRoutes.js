@@ -12,9 +12,9 @@ userRouter.post('/signup', (req, res) => {
   UserModel.findOne({ email: email })
     .then((userInDB) => {
       if (userInDB) {
-        return res.status(202).json({
+        return res.status(203).json({
           message: 'User with this email already exist',
-          statusCode: '202',
+          statusCode: '203',
         });
       }
       bcryptjs.hash(password, 16).then((hashedpwd) => {
@@ -89,10 +89,8 @@ userRouter.put('/profile', isAuth, async (req, res) => {
     user.firstName = firstName || user.firstName;
     user.lastName = lastName || user.lastName;
     user.email = email || user.email;
-    bcryptjs
-      .hash(password, 16)
-      .then((hashedpwd) => (user.password = hashedpwd));
-
+    const hashedpwd = await bcryptjs.hash(password, 16);
+    user.password = hashedpwd;
     const updatedUser = await user.save();
     return res.status(201).json({
       message: 'User profile updated',

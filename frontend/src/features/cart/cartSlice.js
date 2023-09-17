@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-const ORDERS_URL = 'http://localhost:8000/api/order/';
+const ORDERS_URL = 'http://localhost:8000/api/order';
 
 const initialState = {
   cartItems: localStorage.getItem('cartItems')
@@ -19,18 +19,21 @@ const initialState = {
   paymentMethod: localStorage.getItem('paymentMethod')
     ? localStorage.getItem('paymentMethod')
     : 'PayPal',
-  order:localStorage.getItem('order')
-  ?JSON.parse(localStorage.getItem('order'))
-  :null,
-  successPay:false,
-  loadingPay:false
+  order: localStorage.getItem('order')
+    ? JSON.parse(localStorage.getItem('order'))
+    : null,
+  orders: localStorage.getItem('orders')
+    ? JSON.parse(localStorage.getItem('orders'))
+    : null,
+  successPay: false,
+  loadingPay: false,
 };
 export const createOrder = createAsyncThunk(
   'cart/createOrder',
   async (order) => {
     const { token } = JSON.parse(localStorage.getItem('userInfo'));
     try {
-      const response = await axios.post(`${ORDERS_URL}`, order, {
+      const response = await axios.post(`${ORDERS_URL}/`, order, {
         headers: { authorization: `Bearer ${token}` },
       });
       return { ...response.data };
@@ -53,6 +56,22 @@ export const fetchOrder = createAsyncThunk(
     }
   }
 );
+
+export const fetchUserOrders = createAsyncThunk(
+  'cart/fetchUserOrders',
+  async () => {
+    const { token } = JSON.parse(localStorage.getItem('userInfo'));
+    try {
+      const response = await axios.get(`${ORDERS_URL}/fetchUserOrders`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      return { ...response.data };
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -93,7 +112,7 @@ const cartSlice = createSlice({
       state.paymentMethod = action.payload;
       localStorage.setItem('paymentMethod', state.paymentMethod);
     },
-    payRequest(state, action) {
+    payRequest(state) {
       state.loadingPay = true;
       state.successPay = false;
     },
@@ -102,11 +121,11 @@ const cartSlice = createSlice({
       state.successPay = true;
       state.order = action.payload;
     },
-    payFail(state, action) {
+    payFail(state) {
       state.loadingPay = false;
       state.successPay = false;
     },
-    payReset(state, action) {
+    payReset(state) {
       state.loadingPay = false;
       state.successPay = false;
     },
@@ -134,6 +153,18 @@ const cartSlice = createSlice({
       })
       .addCase(fetchOrder.rejected, (state) => {
         state.status = 'failed';
+      })
+      .addCase(fetchUserOrders.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchUserOrders.fulfilled, (state, action) => {
+        state.statusCode = '201';
+        state.orders = action.payload;
+        localStorage.setItem('orders', JSON.stringify(action.payload));
+      })
+      .addCase(fetchUserOrders.rejected, (state) => {
+        state.status = 'failed';
+        console.log('failed');
       });
   },
 });
@@ -156,6 +187,7 @@ export const selectItemById = (state, id) =>
 export const selectPaymentMethod = (state) => state.cart.paymentMethod;
 export const selectStatusCode = (state) => state.cart.statusCode;
 export const selectOrder = (state) => state.cart.order;
+export const selectOrders = (state) => state.cart.orders;
 export const selectSuccessPay = (state) => state.cart.successPay;
 export const selectLoadingPay = (state) => state.cart.loadingPay;
 

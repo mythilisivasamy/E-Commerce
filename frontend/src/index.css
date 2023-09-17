@@ -15,7 +15,8 @@ body {
   font-family: 'Barlow', 'sans-serif';
   font-size: 16px;
 }
-a {
+a,
+#footer a {
   font-family: 'PT Sans', sans-serif;
   text-decoration: none;
   font-size: 18px;
@@ -23,8 +24,14 @@ a {
 p {
   color: var(--darkblue);
 }
-/* Feature Class */
-
+/* Feature Style */
+.link-color {
+  color: var(--darkblue);
+  text-decoration: none;
+}
+.link-color:active {
+  color: #0cc0df;
+}
 .feature {
   background-color: var(--light);
 }
@@ -32,7 +39,6 @@ p {
   width: 100%;
   height: 100%;
   margin-left: 5px;
-  padding: 5px;
   border-color: var(--lightblue);
 }
 
@@ -42,13 +48,11 @@ p {
 
 .feature .card-header {
   width: 100%;
-  height: 260px;
-  background-color: #fff;
+  height: 200px;
 }
 
 .feature img {
-  height: 80%;
-  width: 230px !important;
+  height: 100%;
   transition: all ease-in-out 0.3s;
 }
 
@@ -57,29 +61,26 @@ p {
 }
 
 .feature .pro-btn {
-  height: auto;
-  width: 100%;
-  font-weight: 600;
+  margin-top: 5px !important;
+}
+.feature .pro-btn,
+.add-delete button {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
-  background-color: var(--lightgreen);
+  background-color: var(--lightblue);
+  border: none;
 }
 
 .feature .pro-btn:hover {
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.6);
 }
 .feature .pro-btn a,
-.feature .card-body .pro-btn span {
+.feature .pro-btn i {
   display: inline-flex;
-  padding: 0px 2px;
-  margin: 0px 2px;
+  padding: 3px;
+  margin: 2px;
   color: #fff;
-  font-weight: 600;
-  vertical-align: bottom;
 }
 
-.feature .card .card-title {
-  color: var(--darkblue);
-}
 .feature button .carousel-control-next-icon,
 .feature button .carousel-control-prev-icon {
   background-color: var(--darkblue);
@@ -89,14 +90,17 @@ p {
 .feature .carousel-control-next {
   width: 2rem;
 }
-
 /*Style for Rating component */
 
 div.rating span {
   color: var(--darkblue);
+  font-size: 12px;
 }
 div.rating span.numview {
   color: var(--darkblue);
+}
+.rating p {
+  margin-bottom: 0 !important;
 }
 
 img.img-large {

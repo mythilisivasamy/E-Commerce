@@ -57,7 +57,7 @@ const Rating = (props) => {
           }
         />
       </span>
-      <span className="numview">{` numReviews : ${numReviews}`}</span>
+     {numReviews && <p className="numview">{` numReviews : ${numReviews}`}</p>}
     </div>
   );
 };

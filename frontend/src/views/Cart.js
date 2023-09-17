@@ -3,25 +3,36 @@ import Col from 'react-bootstrap/Col';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
-import ListGroup from 'react-bootstrap/ListGroup';
 import {
   selectAllCartItems,
   removeCartItem,
   addCartItem,
 } from '../features/cart/cartSlice';
 import MessageBox from '../components/MessageBox';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
+import { useEffect } from 'react';
+import { selectUserInfo } from '../features/users/usersSlice';
 
 const Cart = () => {
+  const navigate = useNavigate();
+  let rupeeIndian = Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+  });
   const cartItems = useSelector(selectAllCartItems);
   const subTotal = cartItems.reduce(
     (a, item) => item.quantity * item.price + a,
     0
   );
   const shippingCost = cartItems.length > 0 ? 100 : 0;
-  
+  const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/login');
+    }
+  }, [userInfo, navigate]);
   const handleRemoveItem = (product) => {
     try {
       dispatch(removeCartItem(product));
@@ -41,11 +52,11 @@ const Cart = () => {
     }
   };
   return (
-    <div className="container h-80 mt-2">
-      <Row>
-        <Col sm={7}>
+    <div className="container h-80 my-2">
+      <Row className="my-2">
+        <Col sm={8}>
           <Card>
-            <Card.Header className="bg-light text-center fs-4">
+            <Card.Header className="bg-light text-center fw-bold">
               Items in Cart
             </Card.Header>
             <Card.Body>
@@ -57,7 +68,7 @@ const Cart = () => {
                 <>
                   {cartItems.map((item) => (
                     <Row key={item._id}>
-                      <Col sm={12} md={2} className="text-center">
+                      <Col sm={12} md={3} className="text-center">
                         <img
                           src={item.image}
                           alt={item.name}
@@ -69,56 +80,53 @@ const Cart = () => {
                           <Link to={`/product/${item.slug}`}>
                             <p>{item.name}</p>
                           </Link>
-                          <h6>Rs.{item.price}</h6>
-                          <p className="bg-white">
-                            <button onClick={() => handleRemoveItem(item)}>
-                              <i
-                                className="fa-solid fa-trash"
-                                style={{ color: '#0097b2' }}
-                              ></i>
-                            </button>
+                          <h6> {rupeeIndian.format(item.price)}</h6>
+                          <p>
+                            <i
+                              className="fa-solid fa-trash"
+                              style={{ color: '#0097b2', cursor: 'pointer' }}
+                              onClick={() => handleRemoveItem(item)}
+                            ></i>
                           </p>
                         </div>
                       </Col>
-                      <Col sm={12} md={5} className="text-center">
-                        <ListGroup horizontal>
-                          <ListGroup.Item>
-                            <button
-                              onClick={() =>
-                                handleUpdateCart({
-                                  ...item,
-                                  quantity: item.quantity - 1,
-                                })
-                              }
-                              disabled={item.quantity === 1}
-                            >
-                              <i
-                                className="fa-solid fa-minus"
-                                style={{ color: '#0097b2' }}
-                              ></i>
-                            </button>
-                          </ListGroup.Item>
+                      <Col sm={12} md={4} className="add-delete text-center">
+                        <span className="px-2">
+                          <button
+                            onClick={() =>
+                              handleUpdateCart({
+                                ...item,
+                                quantity: item.quantity - 1,
+                              })
+                            }
+                            disabled={item.quantity === 1}
+                          >
+                            <i
+                              className="fa-solid fa-minus"
+                              style={{ color: '#000' }}
+                            ></i>
+                          </button>
+                        </span>
 
-                          <ListGroup.Item>{item.quantity}</ListGroup.Item>
-                          <ListGroup.Item>
-                            <button
-                              onClick={() =>
-                                handleUpdateCart({
-                                  ...item,
-                                  quantity: item.quantity + 1,
-                                })
-                              }
-                              disabled={item.quantity >= item.countInStock}
-                            >
-                              <i
-                                className="fa-solid fa-plus"
-                                style={{ color: '#0097b2' }}
-                              ></i>
-                            </button>
-                          </ListGroup.Item>
-                        </ListGroup>
+                        <span className="px-2 fw-bold">{item.quantity}</span>
+                        <span className="px-2">
+                          <button
+                            onClick={() =>
+                              handleUpdateCart({
+                                ...item,
+                                quantity: item.quantity + 1,
+                              })
+                            }
+                            disabled={item.quantity >= item.countInStock}
+                          >
+                            <i
+                              className="fa-solid fa-plus"
+                              style={{ color: '#000' }}
+                            ></i>
+                          </button>
+                        </span>
                       </Col>
-                      <hr />
+                      <hr className="my-2" />
                     </Row>
                   ))}
                 </>
@@ -127,13 +135,13 @@ const Cart = () => {
           </Card>
         </Col>
 
-        <Col sm={5}>
+        <Col sm={4}>
           <Card>
-            <Card.Header className="text-center fs-4">Summary</Card.Header>
+            <Card.Header className="text-center fw-bold">Summary</Card.Header>
             <Card.Body>
               <Row>
                 <Col sm={12} md={6}>
-                  <p className="fs-5">
+                  <p className="fw-bold">
                     SubTotal
                     <br />
                     <span>
@@ -151,27 +159,27 @@ const Cart = () => {
                   </p>
                 </Col>
                 <Col sm={12} md={6}>
-                  <h5>
-                    <span>Rs.{subTotal}</span>
-                  </h5>
+                  <h6>
+                    <span> {rupeeIndian.format(subTotal)}</span>
+                  </h6>
                 </Col>
               </Row>
               <Row>
                 <Col sm={12} md={6}>
-                  <p className="fs-5">Shipping</p>
+                  <p className="fw-bold">Shipping</p>
                 </Col>
                 <Col sm={12} md={6}>
-                  <h5>Rs.{shippingCost}</h5>
+                  <h6> {rupeeIndian.format(shippingCost)}</h6>
                 </Col>
               </Row>
 
               <hr />
               <Row>
                 <Col sm={12} md={6}>
-                  <p className="fs-5">Total</p>
+                  <p className="fw-bold">Total</p>
                 </Col>
                 <Col sm={12} md={6}>
-                  <h5>Rs.{subTotal + shippingCost}</h5>
+                  <h6> {rupeeIndian.format(subTotal + shippingCost)}</h6>
                 </Col>
               </Row>
 

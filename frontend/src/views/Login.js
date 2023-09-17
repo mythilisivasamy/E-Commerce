@@ -65,7 +65,7 @@ const Login = () => {
       <div className="col-10 col-xs-12 col-sm-8 col-md-6 col-lg-5 mx-auto d-block text-bg-light mt-3">
         <Form
           onSubmit={handleSubmit(onSubmit)}
-          className="containter small-container bg-white"
+          className="containter small-container bg-light border border-1 my-3 shadow"
         >
           <Row className="mx-2">
             <Col xs={12}>
@@ -118,7 +118,7 @@ const Login = () => {
             <Col xs={12}>
               <Button
                 type="submit"
-                className="mb-2 btn-info align-items-center"
+                className="mb-2 btn-info d-block mx-auto px-4"
               >
                 Login
               </Button>

@@ -26,7 +26,10 @@ const Signup = () => {
     if (statusCode === '201') {
       dispatch(setStatusCode());
       toast.success('Signed Up Successfully');
-      navigate('/login?redirect=/shipping');
+      navigate('/login?redirect=');
+    }
+    if (statusCode === '202') {
+      dispatch(setStatusCode());
     }
   }, [navigate, statusCode, dispatch]);
 
@@ -54,7 +57,7 @@ const Signup = () => {
       <div className="text-center">
         {message === 'Verifying' ? (
           <LoadingBox />
-        ) : statusCode === '202' ? (
+        ) : statusCode === '203' ? (
           <span className="text-center  fs-5 text-danger">{message}</span>
         ) : (
           <></>
@@ -168,10 +171,7 @@ const Signup = () => {
           </Row>
           <Row className="mx-2">
             <Col xs={12}>
-              <Button
-                type="submit"
-                className="mb-2 btn-info align-items-center"
-              >
+              <Button type="submit" className="mb-2 btn-info d-block mx-auto">
                 Sign Up
               </Button>
             </Col>

@@ -1,16 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 const USER_URL = 'http://localhost:8000/api/user';
-if(localStorage.getItem('userInfo')==='undefined'){
-  localStorage.setItem('userInfo','');
+if (localStorage.getItem('userInfo') === 'undefined') {
+  localStorage.setItem('userInfo', '');
 }
 // setting initial state of the user Slice
 const initialState = {
   message: '',
   statusCode: '',
-  userInfo:localStorage.getItem('userInfo')
-      ?JSON.parse(localStorage.getItem('userInfo'))
-      : null,
+  userInfo: localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : null,
 };
 
 // Creating login to the user

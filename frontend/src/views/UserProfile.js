@@ -10,6 +10,7 @@ import {
   updateProfile,
   selectUserMessage,
   signout,
+  selectUserInfo,
   setStatusCode,
 } from '../features/users/usersSlice';
 
@@ -20,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 const UserProfile = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const statusCode = useSelector(selectUserStatusCode);
+  const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const message = useSelector(selectUserMessage);
@@ -30,12 +32,20 @@ const UserProfile = () => {
   } = useForm();
   useEffect(() => {
     if (statusCode === '201') {
-      dispatch(setStatusCode());
-      dispatch(signout());
-      toast.success('Profile Updated Successfully');
-      navigate('/login?redirect=');
+      try {
+        dispatch(setStatusCode());
+        dispatch(signout());
+        toast.success('Profile Updated Successfully');
+        navigate('/login?redirect=');
+      } catch (err) {
+        toast.error(err );
+      }
     }
-  }, [statusCode, dispatch, navigate]);
+
+    if (!userInfo) {
+      navigate('/login');
+    }
+  }, [statusCode, dispatch, navigate, userInfo]);
 
   const onSubmit = (formValues) => {
     if (formValues.password !== confirmPassword) {
