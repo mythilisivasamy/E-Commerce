@@ -8,10 +8,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import SingletonProduct from './SingletonProduct';
 import LoadingBox from '../LoadingBox';
-
 import ListGroup from 'react-bootstrap/ListGroup';
-
-import Form from 'react-bootstrap/Form';
+import Sidebar from '../Sidebar';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -20,8 +18,7 @@ const ProductList = () => {
   const status = useSelector(selectStatus);
   const products$ = useSelector(selectAllProducts);
   const [products, setProducts] = useState(products$);
-  const [category, setCategory] = useState();
-  const [brand, setBrand] = useState();
+  
 
   useEffect(() => {
     setProducts(products$);
@@ -33,21 +30,17 @@ const ProductList = () => {
       toast.success('deleted successfully');
     } catch (err) {}
   };
-  const handleChangeCategory = (e) => {
+  const handleChangeCategory = (category) => {
     const filteredCategory = products$
       .slice()
-      .filter((product) => product.category === e.target.value);
+      .filter((product) => product.category === category);
     setProducts(filteredCategory);
-    setCategory(e.target.value);
-    setBrand('');
   };
-  const handleChangeBrand = (e) => {
+  const handleChangeBrand = (brand) => {
     const filteredBrand = products$
       .slice()
-      .filter((product) => product.brand === e.target.value);
+      .filter((product) => product.brand === brand);
     setProducts(filteredBrand);
-    setBrand(e.target.value);
-    setCategory('');
   };
   return (
     <div>
@@ -78,131 +71,10 @@ const ProductList = () => {
               </div>
             </div>
           </ListGroup.Item>
-          <ListGroup.Item>
-            <Form>
-              <Row className="mx-2">
-                <Col xs={12}>
-                  <p className="fw-bold">Filter by Category</p>
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="saree"
-                      label="Saree"
-                      value="saree"
-                      checked={category === 'saree'}
-                      onChange={(e) => handleChangeCategory(e)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="kurtha"
-                      label="kurtha"
-                      value="kurtha"
-                      checked={category === 'kurtha'}
-                      onChange={(e) => handleChangeCategory(e)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="shirt"
-                      label="Shirt"
-                      value="Shirt"
-                      checked={category === 'Shirt'}
-                      onChange={(e) => handleChangeCategory(e)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="Ethnic"
-                      label="Ethnic"
-                      value="Ethnic"
-                      checked={category === 'Ethnic'}
-                      onChange={(e) => handleChangeCategory(e)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="Casuals"
-                      label="Casuals"
-                      value="Casuals"
-                      checked={category === 'Casuals'}
-                      onChange={(e) => handleChangeCategory(e)}
-                    />
-                  </div>
-                </Col>
-              </Row>
-              <Row className="mx-2">
-                <Col xs={12}>
-                  <p className="fw-bold">Filter by Brand</p>
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="adidas"
-                      label="Adidas"
-                      value="Adidas"
-                      checked={brand === 'Adidas'}
-                      onChange={(e) => handleChangeBrand(e)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="pantalooms"
-                      label="pantalooms"
-                      value="pantalooms"
-                      checked={brand === 'pantalooms'}
-                      onChange={(e) => handleChangeBrand(e)}
-                    />
-                  </div>
-
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="Trends"
-                      label="Trends"
-                      value="Trends"
-                      checked={brand === 'Trends'}
-                      onChange={(e) => handleChangeBrand(e)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="Max"
-                      label="Max"
-                      value="Max"
-                      checked={brand === 'Max'}
-                      onChange={(e) => handleChangeBrand(e)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="Lilliput"
-                      label="Lilliput"
-                      value="Lilliput"
-                      checked={brand === 'Lilliput'}
-                      onChange={(e) => handleChangeBrand(e)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <Form.Check
-                      type="radio"
-                      id="Allen Solly"
-                      label="Allen Solly"
-                      value="Allen Solly"
-                      checked={brand === 'Allen Solly'}
-                      onChange={(e) => handleChangeBrand(e)}
-                    />
-                  </div>
-                </Col>
-              </Row>
-            </Form>
-          </ListGroup.Item>
+          <Sidebar
+                  handleChangeCategory={handleChangeCategory}
+                  handleChangeBrand={handleChangeBrand}
+                />
         </ListGroup>
       )}
     </div>

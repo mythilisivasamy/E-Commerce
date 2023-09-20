@@ -130,3 +130,15 @@ Use Rating component in Product component
 Display all the links of e-commerce app
 
 ## 23.creating MongoDB atlas account to access the MongoDB atlas database
+
+## 24. creating api for seeding sample products and user info
+
+## 25.creating Admin module
+
+1.Creating component which has the UI for filtering product
+2.Creating Edit page and Back end API to edit the selected product
+3.Creating api for deleting the product.
+
+## setting Route Guard
+
+1.Creating Route Guard Component to redirect the route based on login info

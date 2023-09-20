@@ -43,12 +43,13 @@ const ProductEdit = () => {
       category,
       brand,
       price,
-      image: `${baseName}/${image.data.name}`,
+      image: `${baseName}/${image.data}`,
       countInStock: stock,
     };
+
     dispatch(updateProduct(productExcerpt));
     toast.success('product updated');
-    navigate(`../edit/${product._id}`);
+    navigate('/admin');
   };
   const handleChangeCategory = (e) => {
     e.preventDefault();
@@ -60,9 +61,12 @@ const ProductEdit = () => {
   };
 
   const handleFileSelect = (event) => {
+    alert(
+      `select image for kids from public/images/kids\nselect image for women from public/images/women\nselect image for men from public/images/men`
+    );
     const img = {
       preview: URL.createObjectURL(event.target.files[0]),
-      data: event.target.files[0],
+      data: event.target.files[0].name,
     };
     setImage(img);
   };

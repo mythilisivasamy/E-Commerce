@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectUserInfo, signout } from '../features/users/usersSlice';
 import { useState } from 'react';
 
+
 const Header = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -50,6 +51,7 @@ const Header = () => {
             className="col-12 col-sm-6  col-md-6 col-lg-6 my-2"
             id="header-middle"
           >
+          
             <span className="search">
               <input type="text" name="keyword" />
               <button className="normal">Search</button>

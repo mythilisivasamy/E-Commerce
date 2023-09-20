@@ -12,6 +12,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar';
 const ProductsList = () => {
   const [page, setPage] = useState(1);
   const perPage = 8;
@@ -31,6 +32,19 @@ const ProductsList = () => {
   const handleSetPage = (page) => {
     setPage(page);
     window.scrollTo(0, 0);
+  };
+
+  const handleChangeCategory = (category) => {
+    const filteredCategory = products$
+      .slice()
+      .filter((product) => product.category === category);
+    setProducts(filteredCategory);
+  };
+  const handleChangeBrand = (brand) => {
+    const filteredBrand = products$
+      .slice()
+      .filter((product) => product.brand === brand);
+    setProducts(filteredBrand);
   };
 
   const pageItems = () => {
@@ -61,11 +75,27 @@ const ProductsList = () => {
         ) : (
           <div className="container feature mt-2">
             <Row>
-              {products.map((product) => (
-                <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
-                  <Product product={product}></Product>
-                </Col>
-              ))}
+              <Col xs={12} sm={2}>
+                <Sidebar
+                  handleChangeCategory={handleChangeCategory}
+                  handleChangeBrand={handleChangeBrand}
+                />
+              </Col>
+              <Col xs={12} sm={10}>
+                <Row>
+                  {products.map((product) => (
+                    <Col
+                      key={product.slug}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      className="mb-3"
+                    >
+                      <Product product={product}></Product>
+                    </Col>
+                  ))}
+                </Row>
+              </Col>
             </Row>
           </div>
         )}

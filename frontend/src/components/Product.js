@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem, selectAllCartItems } from '../features/cart/cartSlice';
 import { toast } from 'react-toastify';
+import Badge from 'react-bootstrap/Badge';
 
 const Product = (props) => {
   let rupeeIndian = Intl.NumberFormat('en-IN', {
@@ -31,6 +32,9 @@ const Product = (props) => {
   return (
     <Card className={display ? display : 'card'}>
       <div className="card-header text-center text-center bg-white">
+        <h6>
+          <Badge bg="info">{product.brand}</Badge>
+        </h6>
         <img src={product.image} className="img-fluid" alt={product.name} />
       </div>
       <div className="card-body text-start  bg-light">
