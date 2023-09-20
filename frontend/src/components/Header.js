@@ -109,6 +109,27 @@ const Header = () => {
                   )}
                 </Link>
               </li>
+              <li>
+                {userInfo && userInfo.isAdmin ? (
+                  <Dropdown>
+                    <Dropdown.Toggle
+                      variant="flush"
+                      className="text-white"
+                      id="dropdown-basic"
+                    >
+                      Admin
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item>
+                        <Link to="admin">Dashboard</Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                ) : (
+                  ''
+                )}
+              </li>
             </ul>
           </div>
         </div>

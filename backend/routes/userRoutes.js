@@ -59,13 +59,14 @@ userRouter.post('/login', (req, res, next) => {
       bcryptjs.compare(password, userInDB.password).then((isMatched) => {
         if (isMatched) {
           const jwtToken = jwt.sign(
-            { _id: userInDB._id },
+            { _id: userInDB._id, isAdmin: userInDB.isAdmin },
             process.env.JWT_SECRET
           );
           res.status(201).json({
             userInfo: {
               token: jwtToken,
               userName: userInDB.firstName,
+              isAdmin: userInDB.isAdmin,
             },
             message: 'User Logged In Successfully',
             statusCode: '201',

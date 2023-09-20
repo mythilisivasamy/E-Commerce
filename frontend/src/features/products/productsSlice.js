@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 const PRODUCTS_URL = 'http://localhost:8000/api/products';
 
@@ -19,6 +20,37 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
+export const updateProduct = createAsyncThunk(
+  'products/updateProduct',
+  async (productExcerpt) => {
+    try {
+      const { token } = JSON.parse(localStorage.getItem('userInfo'));
+      const response = await axios.put(
+        `${PRODUCTS_URL}/${productExcerpt.id}`,
+        productExcerpt,
+        { headers: { authorization: `Bearer ${token}` } }
+      );
+      return response.data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+export const deleteProduct = createAsyncThunk(
+  'products/deleteProduct',
+  async (productId) => {
+    try {
+      const { token } = JSON.parse(localStorage.getItem('userInfo'));
+      const response = await axios.delete(`${PRODUCTS_URL}/${productId}`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 export const saveReview = createAsyncThunk(
   'products/saveReview',
   async (review) => {
@@ -54,9 +86,9 @@ const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    setStatus:(state)=>{
-      state.status='idle';
-    }
+    setStatus: (state) => {
+      state.status = 'idle';
+    },
   },
   extraReducers(builder) {
     builder
@@ -74,7 +106,7 @@ const productSlice = createSlice({
       .addCase(saveReview.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(saveReview.fulfilled, (state, action) => {
+      .addCase(saveReview.fulfilled, (state) => {
         state.status = 'succeeded';
       })
       .addCase(saveReview.rejected, (state, action) => {
@@ -89,6 +121,44 @@ const productSlice = createSlice({
         state.reviews = action.payload;
       })
       .addCase(fetchReview.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(updateProduct.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        if (!action.payload?.product._id) {
+          toast.error('product could not be updated');
+          return;
+        }
+        state.status = 'succeeded';
+        const { _id } = action.payload.product;
+
+        const products = state.products.filter(
+          (product) => product._id !== _id
+        );
+        state.products = [...products, action.payload.product];
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(deleteProduct.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        if (!action.payload.product?._id) {
+          console.log('delete could not be completed');
+          return;
+        }
+        const { id } = action.payload.product;
+        const products = state.products.filter((product) => product._id !== id);
+        state.products = products;
+        
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

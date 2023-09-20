@@ -75,6 +75,58 @@ Use Rating component in Product component
 5.configuring paypal-script-provider with client id.
 6.creating PayPalButtons with createOrder,onApprove event handler
 
-### 12.Modifying Order with orderId
+### 12.creating Login screen
 
-1.
+1. Using React-form to sync with text form controls
+   2.Creating back-end api for verifying email and password
+   3.Generate jwt-web-token and sending to client
+
+## 13. creating Sign up screen
+
+1. Using React-form to sync with form controls
+   2.Creating back end api to post the signup form values
+
+## 14.Creating user profile screen
+
+1.Using React-form to sync with form controls
+2.creating back end api to update the user profile in the database
+
+## 15.Creating Write cutomer review form
+
+1.Designing form with rating and comment controls.
+2.Creating back end api to post the user review and store it in the products'reviews field.
+
+## 16. creating review component
+
+1.This is used in product details parent component.
+2.This component will display all reviews of the product.
+3.creating back end api to get the product's review
+
+## 17.setting pagination
+
+1.Creating pagination using React Pagination component.
+2.Setting no of products per page
+3.Setting offset to display next page.
+
+## 18.Rating component.
+
+1.This will display stats based on the rating number.
+
+## 19.loading box
+
+1. this will load the spinner component when the browser is in the loading state.
+
+## 20.Shipping Address screen.
+
+1.React form to get the shipping address from the user.
+2.storing it in the react cart store.
+
+## 21.Header screen.
+
+1.Nav bar containing logo,search box,user login,cart icon
+
+## 22.Footer component
+
+Display all the links of e-commerce app
+
+## 23.creating MongoDB atlas account to access the MongoDB atlas database

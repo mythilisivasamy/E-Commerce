@@ -13,6 +13,11 @@ import PlaceOrder from './views/PlaceOrder';
 import Payment from './views/Payment';
 import OrderScreen from './views/OrderScreen';
 import ScrollToTop from './components/ScrollToTop';
+import Dashboard from './views/Dashboard';
+import ProductList from './components/admin/ProductList';
+import UserList from './components/admin/UserList';
+import OrderList from './components/admin/OrderList';
+import ProductEdit from './components/admin/ProductEdit';
 
 function App() {
   return (
@@ -34,6 +39,12 @@ function App() {
           <Route path="/orderHistory" element={<OrderHistory />} />
           <Route path="/placeOrder" element={<PlaceOrder />} />
           <Route path="/order/:id" element={<OrderScreen />} />
+          <Route path="admin" element={<Dashboard />}>
+            <Route index element={<ProductList />} />
+            <Route path="userList" element={<UserList />} />
+            <Route path="orderList" element={<OrderList />} />
+            <Route path="edit/:id" element={<ProductEdit />} />
+          </Route>
         </Route>
       </Routes>
     </Router>

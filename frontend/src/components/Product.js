@@ -53,7 +53,7 @@ const Product = (props) => {
             <span>Add to cart</span>
             <span>
               <FontAwesomeIcon
-                style={{ color: 'white' }}
+                style={{ color: '#000' }}
                 icon={faCartShopping}
               />
             </span>{' '}
