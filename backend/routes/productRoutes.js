@@ -82,7 +82,6 @@ productRouter.delete(
   isAuth,
   isAdmin,
   asyncHandler(async (req, res) => {
-    console.log(req.params.id)
     const product = await Product.findById(req.params.id);
     if (product) {
       const deletedProduct = await product.deleteOne();

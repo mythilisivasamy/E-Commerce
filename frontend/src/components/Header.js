@@ -1,6 +1,6 @@
 import './Header.css';
 import MyNavBar from './MyNavBar';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { selectAllCartItems } from '../features/cart/cartSlice';
@@ -19,10 +19,12 @@ const Header = () => {
   const cartItems = useSelector(selectAllCartItems);
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
+  const navigate=useNavigate();
   const numOfCartItems$ = cartItems.reduce((a, item) => a + item.quantity, 0);
 
   const clickHandler = () => {
     dispatch(signout());
+    navigate('/login')
   };
 
   return (
@@ -82,21 +84,12 @@ const Header = () => {
                 </Dropdown>
               ) : (
                 <li className="nav-item">
-                  {numOfCartItems$ === 0 ? (
-                    <Link
-                      className="nav-link text-white fs-6 fw-bold"
-                      to="/login?redirect="
-                    >
-                      Login
-                    </Link>
-                  ) : (
-                    <Link
-                      className="nav-link text-white fs-6 fw-bold"
-                      to="/login?redirect=/shipping"
-                    >
-                      Login
-                    </Link>
-                  )}
+                  <Link
+                    className="nav-link text-white fs-6 fw-bold"
+                    to="/login"
+                  >
+                    Login
+                  </Link>
                 </li>
               )}
               <li className="nav-item">

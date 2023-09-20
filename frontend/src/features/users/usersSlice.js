@@ -77,6 +77,7 @@ const usersSlice = createSlice({
       })
       .addCase(signup.rejected, (state, action) => {
         state.message = action.error.message;
+        state.statusCode = '';
       })
       .addCase(login.pending, (state) => {
         state.message = 'Verifying';
@@ -94,6 +95,7 @@ const usersSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.message = action.error.message;
+        state.statusCode = '';
       })
       .addCase(updateProfile.pending, (state) => {
         state.message = 'Verifying';
@@ -105,6 +107,7 @@ const usersSlice = createSlice({
       })
       .addCase(updateProfile.rejected, (state, action) => {
         state.message = action.error.message;
+        state.statusCode = '';
       });
   },
 });

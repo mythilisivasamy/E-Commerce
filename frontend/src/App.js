@@ -18,6 +18,7 @@ import ProductList from './components/admin/ProductList';
 import UserList from './components/admin/UserList';
 import OrderList from './components/admin/OrderList';
 import ProductEdit from './components/admin/ProductEdit';
+import RouteGuard from './components/RouteGuard';
 
 function App() {
   return (
@@ -33,13 +34,62 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/shipping" element={<ShippingAddress />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/orderHistory" element={<OrderHistory />} />
-          <Route path="/placeOrder" element={<PlaceOrder />} />
-          <Route path="/order/:id" element={<OrderScreen />} />
-          <Route path="admin" element={<Dashboard />}>
+          <Route
+            path="/shipping"
+            element={
+              <RouteGuard>
+                <ShippingAddress />
+              </RouteGuard>
+            }
+          />
+          <Route
+            path="/payment"
+            element={
+              <RouteGuard>
+                <Payment />
+              </RouteGuard>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <RouteGuard>
+                <UserProfile />
+              </RouteGuard>
+            }
+          />
+          <Route
+            path="/orderHistory"
+            element={
+              <RouteGuard>
+                <OrderHistory />
+              </RouteGuard>
+            }
+          />
+          <Route
+            path="/placeOrder"
+            element={
+              <RouteGuard>
+                <PlaceOrder />
+              </RouteGuard>
+            }
+          />
+          <Route
+            path="/order/:id"
+            element={
+              <RouteGuard>
+                <OrderScreen />
+              </RouteGuard>
+            }
+          />
+          <Route
+            path="admin"
+            element={
+              <RouteGuard>
+                <Dashboard />
+              </RouteGuard>
+            }
+          >
             <Route index element={<ProductList />} />
             <Route path="userList" element={<UserList />} />
             <Route path="orderList" element={<OrderList />} />

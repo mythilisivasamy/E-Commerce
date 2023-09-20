@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import {
   selectAllProducts,
   updateProduct,
@@ -91,7 +91,9 @@ const ProductEdit = () => {
                   />
                 )}
                 <br />
-                {image.data.name}
+                {image.data}
+                <br />
+                <i class="fa-solid fa-cloud-arrow-up"></i>
               </div>
             </div>
           </div>

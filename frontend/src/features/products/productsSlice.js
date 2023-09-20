@@ -151,12 +151,14 @@ const productSlice = createSlice({
         state.status = 'succeeded';
         if (!action.payload.product?._id) {
           console.log('delete could not be completed');
+          state.status = 'idle';
           return;
         }
-        const { id } = action.payload.product;
-        const products = state.products.filter((product) => product._id !== id);
+        const { _id } = action.payload.product;
+        const products = state.products.filter(
+          (product) => product._id !== _id
+        );
         state.products = products;
-        
       })
       .addCase(deleteProduct.rejected, (state, action) => {
         state.status = 'failed';

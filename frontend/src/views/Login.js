@@ -10,6 +10,7 @@ import LoadingBox from '../components/LoadingBox';
 
 import {
   login,
+  selectUserInfo,
   selectUserMessage,
   selectUserStatusCode,
   setStatusCode,
@@ -18,19 +19,18 @@ import {
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectedPath = location.state?.path || '/';
+  const userInfo = useSelector(selectUserInfo);
   const statusCode = useSelector(selectUserStatusCode);
-  const { search } = useLocation();
-  const redirectInUrl = new URLSearchParams(search).get('redirect');
-  const redirectTo = redirectInUrl ? redirectInUrl : '/';
+
   useEffect(() => {
     if (statusCode === '201') {
       dispatch(setStatusCode());
-
-      if (localStorage.getItem('userInfo')) {
-        navigate(redirectTo, { replace: true });
-      }
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      navigate(redirectedPath, { replace: true });
     }
-  }, [navigate, redirectTo, statusCode, dispatch]);
+  }, [statusCode, dispatch, redirectedPath, navigate, userInfo]);
   const message = useSelector(selectUserMessage);
 
   const {

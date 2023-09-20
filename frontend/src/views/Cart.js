@@ -9,13 +9,10 @@ import {
   addCartItem,
 } from '../features/cart/cartSlice';
 import MessageBox from '../components/MessageBox';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
-import { useEffect } from 'react';
-import { selectUserInfo } from '../features/users/usersSlice';
 
 const Cart = () => {
-  const navigate = useNavigate();
   let rupeeIndian = Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
@@ -26,13 +23,9 @@ const Cart = () => {
     0
   );
   const shippingCost = cartItems.length > 0 ? 100 : 0;
-  const userInfo = useSelector(selectUserInfo);
+
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (!userInfo) {
-      navigate('/login');
-    }
-  }, [userInfo, navigate]);
+
   const handleRemoveItem = (product) => {
     try {
       dispatch(removeCartItem(product));
@@ -62,7 +55,7 @@ const Cart = () => {
             <Card.Body>
               {cartItems.length === 0 ? (
                 <MessageBox>
-                  Cart is empty.<Link to="/">Goto Shopping</Link>
+                  Cart is empty.<Link to="/product">Goto Shopping</Link>
                 </MessageBox>
               ) : (
                 <>
@@ -184,7 +177,7 @@ const Cart = () => {
               </Row>
 
               <div className="d-flex justify-content-around align-items-center">
-                <Link to="/login?redirect=/shipping">
+                <Link to="/shipping">
                   <button className="btn btn-info">Checkout</button>
                 </Link>
               </div>

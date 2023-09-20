@@ -1,8 +1,5 @@
 import Card from 'react-bootstrap/Card';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteProduct } from '../../features/products/productsSlice';
-import { toast } from 'react-toastify';
 
 const SingletonProduct = (props) => {
   let rupeeIndian = Intl.NumberFormat('en-IN', {
@@ -11,7 +8,6 @@ const SingletonProduct = (props) => {
   });
   const { product } = props;
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   return (
     <Card className="card">
@@ -33,9 +29,8 @@ const SingletonProduct = (props) => {
           <span
             className="px-3"
             style={{ cursor: 'pointer' }}
-            onClick={() => {
-              dispatch(deleteProduct(product._id));
-              toast.success('product deleted successfully');
+            onClick={(e) => {
+              props.handleDelete(product._id, e);
             }}
           >
             <i className="fa-solid fa-trash" />
@@ -43,7 +38,7 @@ const SingletonProduct = (props) => {
           <span
             className="px-3"
             style={{ cursor: 'pointer' }}
-            onClick={() => navigate(`../edit/${product._id}`)}
+            onClick={() => navigate(`edit/${product._id}`)}
           >
             <i className="fa-solid fa-edit" />
           </span>
