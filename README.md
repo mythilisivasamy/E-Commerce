@@ -142,3 +142,8 @@ Display all the links of e-commerce app
 ## setting Route Guard
 
 1.Creating Route Guard Component to redirect the route based on login info
+
+## customer review of the product
+
+1.creating List Items to show reviews of the customer
+2.creating Form containing rating and comment input controls.

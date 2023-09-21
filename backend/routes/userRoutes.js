@@ -2,8 +2,9 @@ import express from 'express';
 import bcryptjs from 'bcryptjs';
 import UserModel from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
-import { isAuth } from '../middleware/protectedRoute.js';
+import { isAuth, isAdmin } from '../middleware/protectedRoute.js';
 import { CustomError } from '../middleware/errorHandler.js';
+import asyncHandler from 'express-async-handler';
 const userRouter = express.Router();
 userRouter.post('/signup', (req, res) => {
   const { firstName, lastName, email, password, resetToken, isAdmin } =
@@ -102,5 +103,14 @@ userRouter.put('/profile', isAuth, async (req, res) => {
     return res.status(404).json('User not found');
   }
 });
+userRouter.get(
+  '/users',
+  isAuth,
+  isAdmin,
+  asyncHandler(async (req, res) => {
+    const users = await UserModel.find({});
+    res.status(200).json({ statusCode: '200', users });
+  })
+);
 
 export default userRouter;

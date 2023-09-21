@@ -29,7 +29,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="product">
             <Route index element={<ProductsList />} />
-            <Route path=":slug" element={<ProductDetails />} />
+            <Route path=":slug" element={ <RouteGuard><ProductDetails /></RouteGuard>} />
           </Route>
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
@@ -93,6 +93,7 @@ function App() {
             <Route index element={<ProductList />} />
             <Route path="userList" element={<UserList />} />
             <Route path="orderList" element={<OrderList />} />
+            <Route path="userList" element={<UserList />} />
             <Route path="edit/:id" element={<ProductEdit />} />
           </Route>
         </Route>

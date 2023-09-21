@@ -45,20 +45,19 @@ const ProductDetails = () => {
 
   const handleSubmit = (formValues) => {
     if (!userInfo) {
-      navigate(`/login?redirect=/product/${product$.slug}`);
+      navigate('/login');
+    } else {
+      try {
+        const review = {
+          ...formValues,
+          name: userInfo.userName,
+          id: product$._id,
+        };
+        dispatch(saveReview(review));
+      } catch (err) {
+        toast.error(err);
+      }
     }
-    else{
-    try {
-      const review = {
-        ...formValues,
-        name: userInfo.userName,
-        id: product$._id,
-      };
-      dispatch(saveReview(review));
-    } catch (err) {
-      toast.error(err);
-    }
-  }
   };
   const addToCartHandler = (product) => {
     const cartItem = cartItems.find((item) => item._id === product._id);
@@ -80,7 +79,7 @@ const ProductDetails = () => {
         <Col md={5} variant="top" className="text-center">
           <img
             className="img-large img-fluid"
-            src={`../${product.image}`}
+            src={product.image}
             alt={product.name}
           />
         </Col>
@@ -103,7 +102,7 @@ const ProductDetails = () => {
             <ListGroup.Item>
               <img
                 className="img-fluid img-thumbnail"
-                src={`../${product.image}`}
+                src={product.image}
                 alt={product.name}
               />
             </ListGroup.Item>

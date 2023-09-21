@@ -8,7 +8,7 @@ import { fetchProducts, setStatus } from './features/products/productsSlice';
 import reportWebVitals from './reportWebVitals';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 store.dispatch(fetchProducts());
-store.dispatch(setStatus)
+store.dispatch(setStatus);
 const initialOptions = {
   clientId:
     'Ae_1KBHGZdQjch9rfGHcloHNTLc37mkvr0kG2J2Nxh-YxV2LFcFNHjK5IJ387m0EWG5vDD9bXuxy-c3r',

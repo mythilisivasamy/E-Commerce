@@ -33,7 +33,7 @@ const Product = (props) => {
     <Card className={display ? display : 'card'}>
       <div className="card-header text-center text-center bg-white">
         <h6>
-          <Badge bg="info">{product.brand}</Badge>
+          <Badge className="bg-info">{product.brand}</Badge>
         </h6>
         <img src={product.image} className="img-fluid" alt={product.name} />
       </div>

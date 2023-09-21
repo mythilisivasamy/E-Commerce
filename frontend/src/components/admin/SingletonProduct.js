@@ -13,7 +13,7 @@ const SingletonProduct = (props) => {
     <Card className="card">
       <div className="card-header text-center text-center bg-white">
         <img
-          src={`../${product.image}`}
+          src={product.image}
           className="img-fluid"
           alt={product.name}
         />

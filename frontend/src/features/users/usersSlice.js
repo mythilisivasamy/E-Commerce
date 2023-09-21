@@ -47,6 +47,19 @@ export const login = createAsyncThunk('user/login', async (newUser) => {
   }
 });
 
+//Fetch Users
+export const fetchUsers = createAsyncThunk('user/fetchUsers', async () => {
+  try {
+    const { token } = JSON.parse(localStorage.getItem('userInfo'));
+    const response = await axios.get(`${USER_URL}/users`, {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (err) {
+    return err.message;
+  }
+});
+
 // action creators for reducer function
 const usersSlice = createSlice({
   name: 'user',
@@ -108,6 +121,10 @@ const usersSlice = createSlice({
       .addCase(updateProfile.rejected, (state, action) => {
         state.message = action.error.message;
         state.statusCode = '';
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.statusCode = action.payload.statusCode;
+        state.users = action.payload.users;
       });
   },
 });
@@ -117,5 +134,6 @@ export const selectUserStatusCode = (state) => state.user.statusCode;
 export const selectUserInfo = (state) => state.user.userInfo;
 export const selectEmail = (state) => state.user.email;
 export const selectPassword = (state) => state.user.password;
+export const selectUsers = (state) => state.user.users;
 export const { setStatusCode, setToken, signout } = usersSlice.actions;
 export default usersSlice.reducer;

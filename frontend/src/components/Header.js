@@ -1,6 +1,6 @@
 import './Header.css';
 import MyNavBar from './MyNavBar';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { selectAllCartItems } from '../features/cart/cartSlice';
@@ -12,7 +12,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectUserInfo, signout } from '../features/users/usersSlice';
 import { useState } from 'react';
 
-
 const Header = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -20,12 +19,12 @@ const Header = () => {
   const cartItems = useSelector(selectAllCartItems);
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const numOfCartItems$ = cartItems.reduce((a, item) => a + item.quantity, 0);
 
   const clickHandler = () => {
     dispatch(signout());
-    navigate('/login')
+    navigate('/login');
   };
 
   return (
@@ -51,7 +50,6 @@ const Header = () => {
             className="col-12 col-sm-6  col-md-6 col-lg-6 my-2"
             id="header-middle"
           >
-          
             <span className="search">
               <input type="text" name="keyword" />
               <button className="normal">Search</button>
@@ -147,29 +145,29 @@ const Header = () => {
         <Offcanvas.Body className="text-bg-info">
           <Stack direction="Vertical" gap={2}>
             <div className="p-2">
-              <NavLink className="nav-link" to="/" onClick={handleClose}>
+              <Link className="nav-link" to="/" onClick={handleClose}>
                 Home
-              </NavLink>
+              </Link>
             </div>
             <div className="p-2">
-              <NavLink className="nav-link" to="/product" onClick={handleClose}>
+              <Link className="nav-link" to="/product" onClick={handleClose}>
                 All Products
-              </NavLink>
+              </Link>
             </div>
             <div className="p-2">
-              <NavLink className="nav-link" to="/product" onClick={handleClose}>
+              <Link className="nav-link" to="/product" onClick={handleClose}>
                 Women
-              </NavLink>
+              </Link>
             </div>
             <div className="p-2">
-              <NavLink className="nav-link" to="/product" onClick={handleClose}>
+              <Link className="nav-link" to="/product" onClick={handleClose}>
                 Men
-              </NavLink>
+              </Link>
             </div>
             <div className="p-2">
-              <NavLink className="nav-link" to="/product" onClick={handleClose}>
+              <Link className="nav-link" to="/product" onClick={handleClose}>
                 Kids
-              </NavLink>
+              </Link>
             </div>
           </Stack>
         </Offcanvas.Body>

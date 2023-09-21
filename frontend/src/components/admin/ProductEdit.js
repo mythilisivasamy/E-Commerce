@@ -27,7 +27,7 @@ const ProductEdit = () => {
   const [stock, setStock] = useState(product.countInStock);
   const [price, setPrice] = useState(product.price);
   const [image, setImage] = useState({
-    preview: `../../${product.image}`,
+    preview: product.image,
     data: product.image,
   });
   const baseName = product.image.substring(0, product.image.lastIndexOf('/'));

@@ -116,7 +116,7 @@ const OrderScreen = () => {
                 <Row key={item._id}>
                   <Col sm={12} md={3} className="text-center">
                     <img
-                      src={'.' + item.image}
+                      src={item.image}
                       alt={item.name}
                       className="img-fluid rounded img-thumbnail"
                     />
